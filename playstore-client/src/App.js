@@ -45,6 +45,7 @@ class App extends Component {
     // join parameters with &
     const query = params.join('&');
     const url = `${baseUrl}?${query}`;
+    console.log(url);
 
     fetch(url)
     .then(res => {
@@ -54,6 +55,7 @@ class App extends Component {
       return res.json();
     })
     .then(data => {
+      console.log(data);
       this.setState({
         apps: data,
         error: null // reset errors
@@ -65,7 +67,34 @@ class App extends Component {
       })
     })
   }
-// =================================================
+
+  getData() {
+    const baseUrl = 'http://localhost:8000/apps/';
+    fetch(baseUrl)
+    .then(res => {
+      if(res.ok) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    })
+    .then(data => {
+      console.log(data);
+      this.setState({
+        apps: data,
+        error: null // reset errors
+      })
+    })
+    .catch(err => {
+      this.setState({
+        error: `Sorry, something went wrong: ${err.message}`
+      })
+    })
+  }
+  
+  componentDidMount() {
+    this.getData();
+  }
+
   render() {
     const apps = this.state.apps.map((app, i) => {
       return <AppList {...app} key={i} />
