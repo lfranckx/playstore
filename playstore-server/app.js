@@ -38,13 +38,15 @@ app.get('/apps', (req, res) => {
     // filter the list to contain only given value
     if (genres) {
         // console.log(apps);
-        // console.log(genres);
-        apps.filter(app => 
+        console.log(genres);
+        // had to use a new variable because apps is a const variable.  The 
+        let filteredApps = apps.filter(app => 
             // console.log(app.Genres)
             app.Genres.includes(genres)
         )
+        res.json(filteredApps)
     }
-    console.log(apps)
+    // console.log(apps)
     res.json(apps)
 });
 
