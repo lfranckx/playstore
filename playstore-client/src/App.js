@@ -68,8 +68,9 @@ class App extends Component {
     })
   }
 
+  // default the state to list all apps.
   getData() {
-    const baseUrl = 'http://localhost:8000/apps/';
+    const baseUrl = 'http://localhost:8000/apps';
     fetch(baseUrl)
     .then(res => {
       if(res.ok) {
