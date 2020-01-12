@@ -41,11 +41,9 @@ class App extends Component {
     if(this.state.genres) {
       params.push(`genres=${this.state.genres}`);
     }
-    // join parameters with &
-    const query = params.join('&');
+    const query = params.join('&'); // join parameters with &
     const url = `${baseUrl}?${query}`;
     console.log(url);
-
     this.getData(url);
   }
 
