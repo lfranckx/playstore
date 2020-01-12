@@ -29,7 +29,7 @@ class App extends Component {
   // perform the fetch and update the state with the returned data.
   // If there is an error when fetching the data display a message to the user.
   // Seperated the query string constructor and the fetch into two seperate 
-  // functions so I could do a fetch when component mounts.
+  // functions so I could do a fetch when page first loads.
   handleSubmit(e) {
     e.preventDefault();
     const baseUrl = 'http://localhost:8000/apps';
