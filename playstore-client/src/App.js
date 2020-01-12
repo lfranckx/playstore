@@ -25,13 +25,12 @@ class App extends Component {
     })
   }
 
-  // form-submit handler will construct the query string
-  // attach it to the URL, perform the fetch and update
-  // the state with the returned data.
-  // If there is an error when fetching the data display 
-  // a message to the user.
+  // form-submit handler will construct the query string attach it to the URL, 
+  // perform the fetch and update the state with the returned data.
+  // If there is an error when fetching the data display a message to the user.
+  // Seperated the query string constructor and the fetch into two seperate 
+  // functions so I could do a fetch when component mounts.
   handleSubmit(e) {
-    // prevent default form submission
     e.preventDefault();
     const baseUrl = 'http://localhost:8000/apps';
     const params = [];
@@ -47,6 +46,10 @@ class App extends Component {
     const url = `${baseUrl}?${query}`;
     console.log(url);
 
+    this.getData(url);
+  }
+
+  getData(url) {
     fetch(url)
     .then(res => {
       if(res.ok) {
@@ -55,7 +58,6 @@ class App extends Component {
       return res.json();
     })
     .then(data => {
-      console.log(data);
       this.setState({
         apps: data,
         error: null // reset errors
@@ -68,37 +70,16 @@ class App extends Component {
     })
   }
 
-  // default the state to list all apps.
-  getData() {
-    const baseUrl = 'http://localhost:8000/apps';
-    fetch(baseUrl)
-    .then(res => {
-      if(res.ok) {
-        throw new Error(res.statusText);
-      }
-      return res.json();
-    })
-    .then(data => {
-      console.log(data);
-      this.setState({
-        apps: data,
-        error: null // reset errors
-      })
-    })
-    .catch(err => {
-      this.setState({
-        error: `Sorry, something went wrong: ${err.message}`
-      })
-    })
-  }
-  
+  // load list of all apps as default state when page first loads.
   componentDidMount() {
-    this.getData();
+    const baseUrl = 'http://localhost:8000/apps';
+    this.getData(baseUrl);
   }
-
+    
   render() {
+    console.log(this.state.apps)
     const apps = this.state.apps.map((app, i) => {
-      return <AppList {...app} key={i} />
+      return <AppList apps={this.state.apps} key={i} />
     })
     return (
       <main className="App">

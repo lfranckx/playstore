@@ -39,12 +39,12 @@ app.get('/apps', (req, res) => {
     if (genres) {
         // console.log(apps);
         console.log(genres);
-        // had to use a new variable because apps is a const variable.  The 
+        // had to use a new variable because apps is a const variable.
         let filteredApps = apps.filter(app => 
             // console.log(app.Genres)
             app.Genres.includes(genres)
         )
-        res.json(filteredApps)
+        return res.json(filteredApps)
     }
     // console.log(apps)
     res.json(apps)
