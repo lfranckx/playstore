@@ -50,13 +50,12 @@ class App extends Component {
   getData(url) {
     fetch(url)
     .then(res => {
-      if(res.ok) {
+      if(!res.ok) {
         throw new Error(res.statusText);
       }
       return res.json();
     })
     .then(data => {
-      console.log(data);
       this.setState({
         apps: data,
         error: null // reset errors
@@ -76,9 +75,9 @@ class App extends Component {
   }
     
   render() {
-    console.log(this.state.apps)
+    // console.log(this.state.apps);
     const apps = this.state.apps.map((app, i) => {
-      return <AppList apps={this.state.apps} key={i} />
+      return <AppList {...app} key={i} />
     })
     return (
       <main className="App">

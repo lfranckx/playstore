@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function AppList(props) {
+    console.log(props)
     return (
         <div className="App">
             <h2>{props.App}</h2>
